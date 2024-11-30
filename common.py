@@ -6,16 +6,18 @@ import torch.nn.functional as F
 from tqdm import tqdm
 
 
-def calculate_mean_std(ds, shape):
+def calculate_mean_std(ds, shape, data_extractor):
     mean = torch.zeros(shape)
     std = torch.zeros(shape)
 
-    for img, _ in ds:
+    for data in ds:
+        img, _ = data_extractor(data)
         mean += img
 
     mean = mean.sum(dim=[1, 2]) / (len(ds) * shape[1] * shape[2])
 
-    for img, _ in ds:
+    for data in ds:
+        img, _ = data_extractor(data)
         std += (img - mean[:, None, None]) ** 2
 
     std = torch.sqrt(std.sum(dim=[1, 2]) / (len(ds) * shape[1] * shape[2]))
@@ -23,10 +25,12 @@ def calculate_mean_std(ds, shape):
     return mean, std
 
 
-def dump_dataset(ds, split, directory):
+def dump_dataset(ds, split, directory, data_extractor):
     result = []
 
-    for index, (img, label) in enumerate(ds):
+    for index, data in enumerate(ds):
+        img, label = data_extractor(data)
+
         path = f"./{directory}/data/{split}/{index}.pt"
         img = (img * 255).to(dtype=torch.uint8)
 
