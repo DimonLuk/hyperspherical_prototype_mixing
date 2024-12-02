@@ -1,0 +1,7 @@
+matplotlib
+jupyterlab
+lightning
+torchmetrics
+tensorboard
+torch-summary
+# pytorch is installed with micromamba
