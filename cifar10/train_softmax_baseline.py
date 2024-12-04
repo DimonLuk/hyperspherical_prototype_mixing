@@ -119,7 +119,7 @@ if __name__ == "__main__":
         devices=[0],
         logger=TensorBoardLogger(
             "cifar10/logs",
-            "baseline_softmax",
+            "baseline_softmax_with_linear",
         ),
         max_epochs=200,
     )

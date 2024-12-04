@@ -30,6 +30,7 @@ class SmallResnet(nn.Module):
             *[BasicBlock(64, 64) for _ in range(8)],
             nn.AdaptiveAvgPool2d((1, 1)),
             nn.Flatten(1, -1),
+            nn.Linear(64, 64),
         ]
         self.network = nn.Sequential(*_network)
 

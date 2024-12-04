@@ -128,7 +128,7 @@ if __name__ == "__main__":
         devices=[0],
         logger=TensorBoardLogger(
             "cifar10/logs",
-            "mixed_prototypes",
+            "mixed_prototypes_with_linear",
         ),
         max_epochs=200,
     )
