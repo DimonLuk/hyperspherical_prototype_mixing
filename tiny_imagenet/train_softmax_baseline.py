@@ -113,7 +113,7 @@ if __name__ == "__main__":
     val_dl = DataLoader(val_ds, batch_size=BATCH_SIZE, shuffle=False, num_workers=16)
 
     model = resnet34()
-    model.fc = nn.Identity()
+    model.fc = nn.Linear(512, 512)
 
     wrapper = LightningWrapper(model, torch.load("tiny_imagenet/centroids.pt"))
 
@@ -122,7 +122,7 @@ if __name__ == "__main__":
         devices=[0],
         logger=TensorBoardLogger(
             "tiny_imagenet/logs",
-            "baseline_softmax",
+            "baseline_softmax_with_linear",
         ),
         max_epochs=200,
         callbacks=[
